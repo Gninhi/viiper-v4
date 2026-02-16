@@ -15,6 +15,11 @@ from viiper.skills.frontend.badge import PremiumBadgeSkill
 from viiper.skills.frontend.avatar import PremiumAvatarSkill
 from viiper.skills.frontend.progress import PremiumProgressSkill
 from viiper.skills.frontend.checkbox import PremiumCheckboxSkill
+from viiper.skills.frontend.slider import PremiumSliderSkill
+from viiper.skills.frontend.skeleton import PremiumSkeletonSkill
+from viiper.skills.frontend.separator import PremiumSeparatorSkill
+from viiper.skills.frontend.label import PremiumLabelSkill
+from viiper.skills.frontend.alert import PremiumAlertSkill
 
 __all__ = [
     "PremiumButtonSkill",
@@ -32,4 +37,9 @@ __all__ = [
     "PremiumAvatarSkill",
     "PremiumProgressSkill",
     "PremiumCheckboxSkill",
+    "PremiumSliderSkill",
+    "PremiumSkeletonSkill",
+    "PremiumSeparatorSkill",
+    "PremiumLabelSkill",
+    "PremiumAlertSkill",
 ]
