@@ -1,0 +1,70 @@
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "viiper"
+version = "0.1.0"
+description = "VIIPER V4: Revolutionary Multi-Agent Framework for Product Development"
+authors = ["VIIPER Team"]
+license = "MIT"
+readme = "README.md"
+packages = [{include = "viiper"}]
+homepage = "https://github.com/[username]/viiper-v4"
+repository = "https://github.com/[username]/viiper-v4"
+keywords = ["agents", "multi-agent", "product-development", "orchestration", "methodology"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pydantic = "^2.5.0"
+pydantic-settings = "^2.1.0"
+sqlalchemy = "^2.0.0"
+typer = {extras = ["all"], version = "^0.9.0"}
+rich = "^13.7.0"
+httpx = "^0.26.0"
+python-dotenv = "^1.0.0"
+jinja2 = "^3.1.0"
+pyyaml = "^6.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4.0"
+pytest-cov = "^4.1.0"
+pytest-asyncio = "^0.21.0"
+black = "^23.12.0"
+ruff = "^0.1.9"
+mypy = "^1.8.0"
+pre-commit = "^3.6.0"
+
+[tool.poetry.scripts]
+viiper = "viiper.cli.main:app"
+
+[tool.black]
+line-length = 100
+target-version = ['py310']
+include = '\.pyi?$'
+
+[tool.ruff]
+line-length = 100
+select = ["E", "F", "I", "N", "W", "B", "C90"]
+ignore = ["E501"]
+
+[tool.mypy]
+python_version = "3.10"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = "-v --cov=viiper --cov-report=term-missing"
