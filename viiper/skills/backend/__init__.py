@@ -14,6 +14,8 @@ from viiper.skills.backend.logging import LoggingSkill
 from viiper.skills.backend.websockets import WebSocketsSkill
 from viiper.skills.backend.rate_limiting import RateLimitingSkill
 from viiper.skills.backend.background_jobs import BackgroundJobsSkill
+from viiper.skills.backend.health_checks import HealthChecksSkill
+from viiper.skills.backend.api_documentation import APIDocumentationSkill
 
 __all__ = [
     "JWTAuthenticationSkill",
@@ -30,4 +32,6 @@ __all__ = [
     "WebSocketsSkill",
     "RateLimitingSkill",
     "BackgroundJobsSkill",
+    "HealthChecksSkill",
+    "APIDocumentationSkill",
 ]
