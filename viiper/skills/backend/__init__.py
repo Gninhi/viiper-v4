@@ -12,6 +12,8 @@ from viiper.skills.backend.caching import CachingSkill
 from viiper.skills.backend.pagination import PaginationSkill
 from viiper.skills.backend.logging import LoggingSkill
 from viiper.skills.backend.websockets import WebSocketsSkill
+from viiper.skills.backend.rate_limiting import RateLimitingSkill
+from viiper.skills.backend.background_jobs import BackgroundJobsSkill
 
 __all__ = [
     "JWTAuthenticationSkill",
@@ -26,4 +28,6 @@ __all__ = [
     "PaginationSkill",
     "LoggingSkill",
     "WebSocketsSkill",
+    "RateLimitingSkill",
+    "BackgroundJobsSkill",
 ]
