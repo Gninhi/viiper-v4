@@ -8,6 +8,8 @@ from viiper.skills.backend.validation import InputValidationSkill
 from viiper.skills.backend.security import SecurityConfigSkill
 from viiper.skills.backend.file_upload import FileUploadSkill
 from viiper.skills.backend.email_service import EmailServiceSkill
+from viiper.skills.backend.caching import CachingSkill
+from viiper.skills.backend.pagination import PaginationSkill
 
 __all__ = [
     "JWTAuthenticationSkill",
@@ -18,4 +20,6 @@ __all__ = [
     "SecurityConfigSkill",
     "FileUploadSkill",
     "EmailServiceSkill",
+    "CachingSkill",
+    "PaginationSkill",
 ]
