@@ -1,0 +1,42 @@
+name: Documentation
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'viiper/**/*.py'
+      - 'README.md'
+      - 'docs/**'
+
+jobs:
+  update-docs:
+    name: Update Documentation
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: "3.12"
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install pdoc3
+    
+    - name: Generate API docs
+      run: |
+        pdoc --html --output-dir docs/api viiper
+      continue-on-error: true
+    
+    - name: Commit docs
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add docs/ || true
+        git diff --quiet && git diff --staged --quiet || git commit -m "docs: auto-update API documentation"
+        git push || true
+      continue-on-error: true
