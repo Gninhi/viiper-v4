@@ -6,6 +6,14 @@ Specialized agents for Phase P (Production): Frontend, Backend, Testing, and Dev
 
 from typing import Dict, Any, List
 from viiper.agents.base import Agent, AgentRole, AgentCapability, AgentTask
+from viiper.agents.design_excellence import (
+    DesignExcellenceGuide,
+    DesignPhilosophy,
+    ColorSystem,
+    TypographySystem,
+    AnimationSystem,
+    ComponentLibrary
+)
 
 
 class FrontendAgent(Agent):

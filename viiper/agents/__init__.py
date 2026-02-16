@@ -13,6 +13,15 @@ from viiper.agents.production import (
     TestingAgent,
     DevOpsAgent,
 )
+from viiper.agents.elite_frontend import EliteFrontendAgent
+from viiper.agents.design_excellence import (
+    DesignExcellenceGuide,
+    DesignPhilosophy,
+    ColorSystem,
+    TypographySystem,
+    AnimationSystem,
+    ComponentLibrary,
+)
 from viiper.agents.collaboration import (
     AgentMessage,
     MessageType,
@@ -47,6 +56,15 @@ __all__ = [
     "BackendAgent",
     "TestingAgent",
     "DevOpsAgent",
+    # Elite agents
+    "EliteFrontendAgent",
+    # Design Excellence
+    "DesignExcellenceGuide",
+    "DesignPhilosophy",
+    "ColorSystem",
+    "TypographySystem",
+    "AnimationSystem",
+    "ComponentLibrary",
     # Collaboration
     "AgentMessage",
     "MessageType",

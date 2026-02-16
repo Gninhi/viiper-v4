@@ -18,6 +18,8 @@ from viiper.agents.production import (
     TestingAgent,
     DevOpsAgent,
 )
+from viiper.agents.elite_frontend import EliteFrontendAgent
+from viiper.agents.elite_architecture import EliteSystemDesignAgent
 
 
 class AgentRegistry:
@@ -41,6 +43,9 @@ class AgentRegistry:
         "backend": BackendAgent,
         "testing": TestingAgent,
         "devops": DevOpsAgent,
+        # Elite agents (world-class design)
+        "elite_frontend": EliteFrontendAgent,
+        "elite_system_design": EliteSystemDesignAgent,
     }
 
     # Map roles to agent names
