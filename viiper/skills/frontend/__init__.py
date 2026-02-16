@@ -12,6 +12,9 @@ from viiper.skills.frontend.tooltip import PremiumTooltipSkill
 from viiper.skills.frontend.accordion import PremiumAccordionSkill
 from viiper.skills.frontend.popover import PremiumPopoverSkill
 from viiper.skills.frontend.badge import PremiumBadgeSkill
+from viiper.skills.frontend.avatar import PremiumAvatarSkill
+from viiper.skills.frontend.progress import PremiumProgressSkill
+from viiper.skills.frontend.checkbox import PremiumCheckboxSkill
 
 __all__ = [
     "PremiumButtonSkill",
@@ -26,4 +29,7 @@ __all__ = [
     "PremiumAccordionSkill",
     "PremiumPopoverSkill",
     "PremiumBadgeSkill",
+    "PremiumAvatarSkill",
+    "PremiumProgressSkill",
+    "PremiumCheckboxSkill",
 ]
