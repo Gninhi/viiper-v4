@@ -9,6 +9,9 @@ from viiper.skills.frontend.toast import PremiumToastSkill
 from viiper.skills.frontend.select import PremiumSelectSkill
 from viiper.skills.frontend.tabs import PremiumTabsSkill
 from viiper.skills.frontend.tooltip import PremiumTooltipSkill
+from viiper.skills.frontend.accordion import PremiumAccordionSkill
+from viiper.skills.frontend.popover import PremiumPopoverSkill
+from viiper.skills.frontend.badge import PremiumBadgeSkill
 
 __all__ = [
     "PremiumButtonSkill",
@@ -20,4 +23,7 @@ __all__ = [
     "PremiumSelectSkill",
     "PremiumTabsSkill",
     "PremiumTooltipSkill",
+    "PremiumAccordionSkill",
+    "PremiumPopoverSkill",
+    "PremiumBadgeSkill",
 ]
