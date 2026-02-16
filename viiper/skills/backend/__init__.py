@@ -10,6 +10,8 @@ from viiper.skills.backend.file_upload import FileUploadSkill
 from viiper.skills.backend.email_service import EmailServiceSkill
 from viiper.skills.backend.caching import CachingSkill
 from viiper.skills.backend.pagination import PaginationSkill
+from viiper.skills.backend.logging import LoggingSkill
+from viiper.skills.backend.websockets import WebSocketsSkill
 
 __all__ = [
     "JWTAuthenticationSkill",
@@ -22,4 +24,6 @@ __all__ = [
     "EmailServiceSkill",
     "CachingSkill",
     "PaginationSkill",
+    "LoggingSkill",
+    "WebSocketsSkill",
 ]
