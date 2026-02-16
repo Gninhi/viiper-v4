@@ -55,10 +55,12 @@ class TestAgentRegistry:
     def test_list_all_agents(self):
         """Test listing all available agents."""
         agents = AgentRegistry.list_all_agents()
-        assert len(agents) == 9
+        assert len(agents) == 11  # 9 standard + 2 elite agents
         assert "market_research" in agents
         assert "system_design" in agents
         assert "frontend" in agents
+        assert "elite_frontend" in agents
+        assert "elite_system_design" in agents
 
     def test_get_agent_class(self):
         """Test getting agent class by name."""
@@ -79,11 +81,12 @@ class TestAgentRegistry:
         assert "user_interview" in research_agents
 
         architecture_agents = AgentRegistry.get_agents_by_role(AgentRole.ARCHITECTURE)
-        assert len(architecture_agents) == 3
+        assert len(architecture_agents) == 4  # 3 standard + elite_system_design
         assert "system_design" in architecture_agents
+        assert "elite_system_design" in architecture_agents
 
         production_agents = AgentRegistry.get_agents_by_role(AgentRole.PRODUCTION)
-        assert len(production_agents) == 4
+        assert len(production_agents) == 5  # 4 standard + elite_frontend
 
     def test_get_agents_by_capability(self):
         """Test getting agents by capability."""
@@ -153,7 +156,7 @@ class TestAgentFactory:
     def test_create_agent_pool(self):
         """Test creating pool of all agents."""
         pool = AgentFactory.create_agent_pool()
-        assert len(pool) == 9
+        assert len(pool) == 11  # 9 standard + 2 elite agents
         assert all(isinstance(a, Agent) for a in pool)
 
         # Test with size limit
@@ -202,7 +205,7 @@ class TestConvenienceFunctions:
     def test_create_full_team(self):
         """Test creating full team."""
         team = create_full_team()
-        assert len(team) == 9
+        assert len(team) == 11  # 9 standard + 2 elite agents
 
 
 # ============================================================================

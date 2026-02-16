@@ -14,6 +14,7 @@ from viiper.agents.production import (
     DevOpsAgent,
 )
 from viiper.agents.elite_frontend import EliteFrontendAgent
+from viiper.agents.elite_architecture import EliteSystemDesignAgent
 from viiper.agents.design_excellence import (
     DesignExcellenceGuide,
     DesignPhilosophy,
@@ -36,6 +37,7 @@ from viiper.agents.factory import (
     create_production_team,
     create_validation_team,
     create_full_team,
+    create_elite_team,
 )
 
 __all__ = [
@@ -58,6 +60,7 @@ __all__ = [
     "DevOpsAgent",
     # Elite agents
     "EliteFrontendAgent",
+    "EliteSystemDesignAgent",
     # Design Excellence
     "DesignExcellenceGuide",
     "DesignPhilosophy",
@@ -78,4 +81,5 @@ __all__ = [
     "create_production_team",
     "create_validation_team",
     "create_full_team",
+    "create_elite_team",
 ]

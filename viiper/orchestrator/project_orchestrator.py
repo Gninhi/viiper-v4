@@ -98,6 +98,11 @@ class ProjectOrchestrator:
             "Backend Development": AgentCapability.BACKEND_DEVELOPMENT,
             "Testing": AgentCapability.TESTING,
             "DevOps": AgentCapability.DEVOPS,
+            # Elite agent task mappings
+            "Elite Frontend Development": AgentCapability.FRONTEND_DEVELOPMENT,
+            "Elite System Architecture": AgentCapability.SYSTEM_DESIGN,
+            "World-Class UI Design": AgentCapability.FRONTEND_DEVELOPMENT,
+            "Enterprise Architecture": AgentCapability.SYSTEM_DESIGN,
         }
 
         required_capability = capability_map.get(task.name)

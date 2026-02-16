@@ -51,8 +51,19 @@ class AgentRegistry:
     # Map roles to agent names
     AGENTS_BY_ROLE: Dict[AgentRole, List[str]] = {
         AgentRole.RESEARCH: ["market_research", "user_interview"],
-        AgentRole.ARCHITECTURE: ["system_design", "tech_stack", "security_planning"],
-        AgentRole.PRODUCTION: ["frontend", "backend", "testing", "devops"],
+        AgentRole.ARCHITECTURE: [
+            "system_design",
+            "tech_stack",
+            "security_planning",
+            "elite_system_design"  # Elite architecture agent
+        ],
+        AgentRole.PRODUCTION: [
+            "frontend",
+            "backend",
+            "testing",
+            "devops",
+            "elite_frontend"  # Elite production agent
+        ],
         AgentRole.SUPPORT: [],  # To be added
         AgentRole.SPECIALIST: [],  # To be added
     }
@@ -317,3 +328,17 @@ def create_full_team() -> List[Agent]:
         List of all agents
     """
     return AgentFactory.create_agent_pool()
+
+
+def create_elite_team() -> List[Agent]:
+    """
+    Create team of Elite agents for world-class projects.
+
+    Returns:
+        List of Elite agents (frontend, architecture)
+    """
+    elite_agents = [
+        AgentFactory.create_agent("elite_frontend"),
+        AgentFactory.create_agent("elite_system_design"),
+    ]
+    return [a for a in elite_agents if a is not None]
