@@ -6,6 +6,9 @@ from viiper.skills.frontend.modal import PremiumModalSkill
 from viiper.skills.frontend.form import PremiumFormSkill
 from viiper.skills.frontend.card import PremiumCardSkill
 from viiper.skills.frontend.toast import PremiumToastSkill
+from viiper.skills.frontend.select import PremiumSelectSkill
+from viiper.skills.frontend.tabs import PremiumTabsSkill
+from viiper.skills.frontend.tooltip import PremiumTooltipSkill
 
 __all__ = [
     "PremiumButtonSkill",
@@ -14,4 +17,7 @@ __all__ = [
     "PremiumFormSkill",
     "PremiumCardSkill",
     "PremiumToastSkill",
+    "PremiumSelectSkill",
+    "PremiumTabsSkill",
+    "PremiumTooltipSkill",
 ]
