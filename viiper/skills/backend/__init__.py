@@ -1,3 +1,9 @@
 """Backend skills package."""
 
-# Skills will be added here in Phase 3
+from viiper.skills.backend.jwt_auth import JWTAuthenticationSkill
+from viiper.skills.backend.api_routes import RESTAPIRoutesSkill
+
+__all__ = [
+    "JWTAuthenticationSkill",
+    "RESTAPIRoutesSkill",
+]
