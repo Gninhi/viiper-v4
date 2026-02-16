@@ -10,7 +10,9 @@ import asyncio
 
 from viiper.core.project import Project
 from viiper.core.phase import Phase
-from viiper.agents.base import Agent, AgentTask, AgentRole
+from viiper.agents.base import Agent, AgentTask, AgentRole, AgentCapability
+from viiper.agents.factory import AgentFactory
+from viiper.agents.collaboration import CollaborationProtocol, MessageType
 
 
 class OrchestrationResult(BaseModel):
@@ -36,17 +38,36 @@ class ProjectOrchestrator:
     - Phase transitions
     """
     
-    def __init__(self, project: Project):
+    def __init__(self, project: Project, auto_register_agents: bool = True):
         """
         Initialize orchestrator.
-        
+
         Args:
             project: Project to orchestrate
+            auto_register_agents: Automatically register all available agents
         """
         self.project = project
         self.agents: List[Agent] = []
         self.active_tasks: List[AgentTask] = []
+        self.collaboration = CollaborationProtocol()
+
+        # Create shared context for this project
+        self.context = self.collaboration.create_context(
+            project_id=project.id,
+            phase=project.phase.value,
+            variant=project.variant.value
+        )
+
+        # Auto-register agents if requested
+        if auto_register_agents:
+            self._register_all_agents()
     
+    def _register_all_agents(self) -> None:
+        """Register all available agents using the factory."""
+        all_agents = AgentFactory.create_agent_pool()
+        for agent in all_agents:
+            self.register_agent(agent)
+
     def register_agent(self, agent: Agent) -> None:
         """Register an agent with the orchestrator."""
         self.agents.append(agent)
@@ -58,62 +79,103 @@ class ProjectOrchestrator:
     def find_capable_agent(self, task: AgentTask) -> Optional[Agent]:
         """
         Find an agent capable of handling a task.
-        
+
         Args:
             task: Task to assign
-            
+
         Returns:
             Agent if found, None otherwise
         """
-        # Simple selection - first available agent
-        # In production, this would use intelligent matching
+        # Map task names to required capabilities
+        capability_map = {
+            "Market Research": AgentCapability.MARKET_RESEARCH,
+            "User Interviews": AgentCapability.USER_INTERVIEWS,
+            "Competitive Analysis": AgentCapability.COMPETITIVE_ANALYSIS,
+            "System Architecture": AgentCapability.SYSTEM_DESIGN,
+            "Tech Stack Selection": AgentCapability.TECH_STACK_SELECTION,
+            "Security Planning": AgentCapability.SECURITY_PLANNING,
+            "Frontend Development": AgentCapability.FRONTEND_DEVELOPMENT,
+            "Backend Development": AgentCapability.BACKEND_DEVELOPMENT,
+            "Testing": AgentCapability.TESTING,
+            "DevOps": AgentCapability.DEVOPS,
+        }
+
+        required_capability = capability_map.get(task.name)
+
+        # Find agents with the required capability
+        capable_agents = []
         for agent in self.agents:
-            if agent.status == "idle":
-                return agent
+            if required_capability and required_capability in agent.capabilities:
+                capable_agents.append(agent)
+
+        # Prefer idle agents, but allow busy agents if necessary
+        idle_agents = [a for a in capable_agents if a.status == "idle"]
+        if idle_agents:
+            return idle_agents[0]
+        elif capable_agents:
+            return capable_agents[0]
+
         return None
     
     async def execute_phase(self, phase: Optional[Phase] = None) -> OrchestrationResult:
         """
-        Execute tasks for a specific phase.
-        
+        Execute tasks for a specific phase with agent collaboration.
+
         Args:
             phase: Phase to execute (defaults to current project phase)
-            
+
         Returns:
             Orchestration result
         """
         import time
         start_time = time.time()
-        
+
         target_phase = phase or self.project.phase
-        
+
+        # Update context phase
+        self.context.phase = target_phase.value
+
         # Get tasks for this phase
         tasks = self._generate_phase_tasks(target_phase)
-        
-        # Execute tasks
+
+        # Execute tasks with collaboration
         results = []
         errors = []
-        
+
         for task in tasks:
             try:
                 agent = self.find_capable_agent(task)
                 if not agent:
                     errors.append(f"No agent available for task: {task.name}")
                     continue
-                
+
+                # Get relevant context for this agent
+                relevant_context = self.context.get_relevant_context(agent.name)
+
+                # Add context to task if available
+                if relevant_context:
+                    task.context = relevant_context
+
                 # Assign and execute
                 agent.assign_task(task)
                 result = await agent.execute_task(task)
                 agent.complete_task(result)
                 results.append(result)
-                
+
+                # Share agent output with context
+                self.collaboration.share_context(
+                    self.project.id,
+                    agent.name,
+                    result
+                )
+
             except Exception as e:
                 errors.append(f"Task {task.name} failed: {str(e)}")
                 if agent:
                     agent.fail_task(str(e))
-        
+
         duration = time.time() - start_time
-        
+
         return OrchestrationResult(
             success=len(errors) == 0,
             phase=target_phase,
