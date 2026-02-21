@@ -15,6 +15,7 @@ from viiper.skills.base import (
     UsageExample,
     AntiPattern,
 )
+from viiper.skills.common_dependencies import FRONTEND_BASE_DEPS
 
 
 class PremiumFormSkill(Skill):
@@ -44,32 +45,7 @@ class PremiumFormSkill(Skill):
         description="Complete form implementation pattern with type-safe Zod validation and React Hook Form",
     )
 
-    dependencies: list = [
-        Dependency(
-            name="react",
-            version="^18.0.0",
-            package_manager="npm",
-            reason="UI library",
-        ),
-        Dependency(
-            name="react-hook-form",
-            version="^7.50.0",
-            package_manager="npm",
-            reason="Form state and validation management",
-        ),
-        Dependency(
-            name="zod",
-            version="^3.22.0",
-            package_manager="npm",
-            reason="Schema validation with TypeScript inference",
-        ),
-        Dependency(
-            name="@hookform/resolvers",
-            version="^3.3.0",
-            package_manager="npm",
-            reason="Zod resolver for React Hook Form",
-        ),
-    ]
+    dependencies: list = FRONTEND_BASE_DEPS
 
     best_practices: list = [
         BestPractice(

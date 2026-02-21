@@ -20,6 +20,12 @@ from viiper.agents.production import (
 )
 from viiper.agents.elite_frontend import EliteFrontendAgent
 from viiper.agents.elite_architecture import EliteSystemDesignAgent
+from viiper.agents.support import DocumentationAgent
+from viiper.agents.specialist import SEOAgent, ContentWriterAgent
+from viiper.agents.browser import BrowserAgent
+from viiper.agents.idea_generation import IdeaGenerationAgent
+from viiper.agents.execution import MarketingAgent, GrowthAgent, LaunchAgent
+from viiper.agents.rentabilisation import MonetizationAgent, AnalyticsAgent, OptimizationAgent
 
 
 class AgentRegistry:
@@ -31,58 +37,78 @@ class AgentRegistry:
 
     # Map agent names to their classes
     AGENT_CLASSES: Dict[str, Type[Agent]] = {
-        # Research agents
+        # Research agents (Phase V: Validation)
         "market_research": MarketResearchAgent,
         "user_interview": UserInterviewAgent,
-        # Architecture agents
+        "idea_generation": IdeaGenerationAgent,
+        # Architecture agents (Phase I: Ideation)
         "system_design": SystemDesignAgent,
         "tech_stack": TechStackAgent,
         "security_planning": SecurityPlanningAgent,
-        # Production agents
+        # Production agents (Phase P: Production)
         "frontend": FrontendAgent,
         "backend": BackendAgent,
         "testing": TestingAgent,
         "devops": DevOpsAgent,
+        # Execution agents (Phase E: Execution)
+        "marketing": MarketingAgent,
+        "growth": GrowthAgent,
+        "launch": LaunchAgent,
+        # Rentabilisation agents (Phase R)
+        "monetization": MonetizationAgent,
+        "analytics": AnalyticsAgent,
+        "optimization": OptimizationAgent,
         # Elite agents (world-class design)
         "elite_frontend": EliteFrontendAgent,
         "elite_system_design": EliteSystemDesignAgent,
+        # Support agents
+        "documentation": DocumentationAgent,
+        # Specialist agents
+        "seo": SEOAgent,
+        "content_writer": ContentWriterAgent,
+        "browser": BrowserAgent,
     }
 
     # Map roles to agent names
     AGENTS_BY_ROLE: Dict[AgentRole, List[str]] = {
-        AgentRole.RESEARCH: ["market_research", "user_interview"],
+        AgentRole.RESEARCH: ["market_research", "user_interview", "idea_generation"],
         AgentRole.ARCHITECTURE: [
             "system_design",
             "tech_stack",
             "security_planning",
-            "elite_system_design"  # Elite architecture agent
+            "elite_system_design",
         ],
         AgentRole.PRODUCTION: [
             "frontend",
             "backend",
             "testing",
             "devops",
-            "elite_frontend"  # Elite production agent
+            "elite_frontend",
         ],
-        AgentRole.SUPPORT: [],  # To be added
-        AgentRole.SPECIALIST: [],  # To be added
+        AgentRole.SUPPORT: ["documentation"],
+        AgentRole.SPECIALIST: ["seo", "content_writer", "browser"],
     }
 
     # Map capabilities to agent names
     AGENTS_BY_CAPABILITY: Dict[AgentCapability, List[str]] = {
-        AgentCapability.MARKET_RESEARCH: ["market_research"],
+        AgentCapability.MARKET_RESEARCH: ["market_research", "idea_generation"],
         AgentCapability.USER_INTERVIEWS: ["user_interview"],
-        AgentCapability.COMPETITIVE_ANALYSIS: ["market_research"],
-        AgentCapability.DATA_ANALYSIS: ["market_research", "user_interview"],
-        AgentCapability.SYSTEM_DESIGN: ["system_design"],
+        AgentCapability.COMPETITIVE_ANALYSIS: ["market_research", "seo", "idea_generation"],
+        AgentCapability.DATA_ANALYSIS: ["market_research", "user_interview", "seo"],
+        AgentCapability.SYSTEM_DESIGN: ["system_design", "elite_system_design"],
         AgentCapability.TECH_STACK_SELECTION: ["tech_stack"],
         AgentCapability.SECURITY_PLANNING: ["security_planning"],
-        AgentCapability.SCALABILITY_PLANNING: ["system_design"],
-        AgentCapability.FRONTEND_DEVELOPMENT: ["frontend"],
+        AgentCapability.SCALABILITY_PLANNING: ["system_design", "elite_system_design"],
+        AgentCapability.FRONTEND_DEVELOPMENT: ["frontend", "elite_frontend"],
         AgentCapability.BACKEND_DEVELOPMENT: ["backend"],
         AgentCapability.DATABASE_DESIGN: ["backend"],
         AgentCapability.TESTING: ["testing"],
         AgentCapability.DEVOPS: ["devops"],
+        AgentCapability.DOCUMENTATION: ["documentation"],
+        AgentCapability.SEO: ["seo"],
+        AgentCapability.CONTENT_WRITING: ["content_writer"],
+        AgentCapability.COPYWRITING: ["content_writer"],
+        AgentCapability.ACCESSIBILITY: ["elite_frontend"],
     }
 
     @classmethod
@@ -179,7 +205,7 @@ class AgentFactory:
         Example:
             >>> agents = AgentFactory.create_agents_for_role(AgentRole.RESEARCH)
             >>> len(agents)
-            2
+            3  # Now includes idea_generation
         """
         agent_names = AgentRegistry.get_agents_by_role(role)
         agents = []
@@ -209,12 +235,13 @@ class AgentFactory:
         """
         # Map phases to required agents
         phase_agents = {
-            "validation": ["market_research", "user_interview"],
+            "validation": ["market_research", "user_interview", "browser"],
             "ideation": ["system_design", "tech_stack", "security_planning"],
             "production": ["frontend", "backend", "testing", "devops"],
-            "execution": [],  # Marketing/launch agents (future)
-            "rentabilisation": [],  # Analytics/optimization agents (future)
-            "iteration": ["frontend", "backend", "testing"],  # Subset for iteration
+            "execution": ["marketing", "growth", "launch"],
+            "rentabilisation": ["monetization", "analytics", "optimization"],
+            "iteration": ["frontend", "backend", "testing"],
+            "discovery": ["browser", "idea_generation"],
         }
 
         agent_names = phase_agents.get(phase.lower(), [])
@@ -241,7 +268,7 @@ class AgentFactory:
         Example:
             >>> pool = AgentFactory.create_agent_pool()
             >>> len(pool)
-            9  # All available agents
+            15  # All available agents including new ones
         """
         agent_names = AgentRegistry.list_all_agents()
 
@@ -342,3 +369,28 @@ def create_elite_team() -> List[Agent]:
         AgentFactory.create_agent("elite_system_design"),
     ]
     return [a for a in elite_agents if a is not None]
+
+
+# NEW: Browse → Idea → Code pipeline helpers
+def create_discovery_team() -> List[Agent]:
+    """
+    Create team for Browse → Idea discovery phase.
+
+    Returns:
+        List of agents for discovery (browser, idea_generation)
+    """
+    return AgentFactory.create_agents_for_phase("discovery")
+
+
+def create_browse_idea_code_pipeline() -> Dict[str, List[Agent]]:
+    """
+    Create full pipeline for Browse → Idea → Code workflow.
+
+    Returns:
+        Dictionary with agents for each pipeline stage
+    """
+    return {
+        "discovery": create_discovery_team(),
+        "ideation": create_ideation_team(),
+        "production": create_production_team(),
+    }

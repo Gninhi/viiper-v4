@@ -15,6 +15,7 @@ from viiper.skills.base import (
     UsageExample,
     AntiPattern,
 )
+from viiper.skills.common_dependencies import FRONTEND_BASE_DEPS
 
 
 class PremiumTooltipSkill(Skill):
@@ -44,36 +45,12 @@ class PremiumTooltipSkill(Skill):
         description="Production-ready tooltip with smart positioning and accessibility",
     )
 
-    dependencies: list = [
-        Dependency(
-            name="react",
-            version="^18.0.0",
-            package_manager="npm",
-            reason="UI library",
-        ),
+    dependencies: list = FRONTEND_BASE_DEPS + [
         Dependency(
             name="@radix-ui/react-tooltip",
             version="^1.0.7",
             package_manager="npm",
             reason="Accessible tooltip primitives",
-        ),
-        Dependency(
-            name="tailwindcss",
-            version="^3.4.0",
-            package_manager="npm",
-            reason="Utility-first CSS framework",
-        ),
-        Dependency(
-            name="clsx",
-            version="^2.1.0",
-            package_manager="npm",
-            reason="Conditional class merging",
-        ),
-        Dependency(
-            name="tailwind-merge",
-            version="^2.2.0",
-            package_manager="npm",
-            reason="Merge Tailwind classes properly",
         ),
     ]
 

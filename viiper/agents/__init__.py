@@ -15,6 +15,8 @@ from viiper.agents.production import (
 )
 from viiper.agents.elite_frontend import EliteFrontendAgent
 from viiper.agents.elite_architecture import EliteSystemDesignAgent
+from viiper.agents.support import DocumentationAgent
+from viiper.agents.specialist import SEOAgent, ContentWriterAgent
 from viiper.agents.design_excellence import (
     DesignExcellenceGuide,
     DesignPhilosophy,
@@ -40,6 +42,16 @@ from viiper.agents.factory import (
     create_elite_team,
 )
 
+# New agents for Browse → Idea → Code pipeline
+from viiper.agents.browser import BrowserAgent, BrowserCapability
+from viiper.agents.idea_generation import IdeaGenerationAgent, AppIdea, IdeaScore, IdeaCategory
+
+# Phase E: Execution agents
+from viiper.agents.execution import MarketingAgent, GrowthAgent, LaunchAgent
+
+# Phase R: Rentabilisation agents
+from viiper.agents.rentabilisation import MonetizationAgent, AnalyticsAgent, OptimizationAgent
+
 __all__ = [
     # Base classes
     "Agent",
@@ -61,6 +73,18 @@ __all__ = [
     # Elite agents
     "EliteFrontendAgent",
     "EliteSystemDesignAgent",
+    # Support agents
+    "DocumentationAgent",
+    # Specialist agents
+    "SEOAgent",
+    "ContentWriterAgent",
+    # NEW: Browser & Idea agents
+    "BrowserAgent",
+    "BrowserCapability",
+    "IdeaGenerationAgent",
+    "AppIdea",
+    "IdeaScore",
+    "IdeaCategory",
     # Design Excellence
     "DesignExcellenceGuide",
     "DesignPhilosophy",
@@ -82,4 +106,12 @@ __all__ = [
     "create_validation_team",
     "create_full_team",
     "create_elite_team",
+    # Phase E: Execution
+    "MarketingAgent",
+    "GrowthAgent",
+    "LaunchAgent",
+    # Phase R: Rentabilisation
+    "MonetizationAgent",
+    "AnalyticsAgent",
+    "OptimizationAgent",
 ]

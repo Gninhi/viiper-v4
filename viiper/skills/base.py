@@ -32,6 +32,7 @@ class SkillCategory(str, Enum):
     DEVOPS_MONITORING = "devops_monitoring"
     DEVOPS_INFRASTRUCTURE = "devops_infrastructure"
     DEVOPS_CI_CD = "devops_ci_cd"
+    DEVOPS_SECURITY = "devops_security"
 
     # Testing
     TESTING_UNIT = "testing_unit"
@@ -66,12 +67,8 @@ class SkillMetadata(BaseModel):
     difficulty: SkillDifficulty = Field(
         default=SkillDifficulty.INTERMEDIATE, description="Skill difficulty level"
     )
-    estimated_time_minutes: int = Field(
-        default=30, description="Estimated implementation time"
-    )
-    description: str = Field(
-        default="", description="Brief description of what this skill does"
-    )
+    estimated_time_minutes: int = Field(default=30, description="Estimated implementation time")
+    description: str = Field(default="", description="Brief description of what this skill does")
 
 
 class Dependency(BaseModel):
@@ -79,12 +76,8 @@ class Dependency(BaseModel):
 
     name: str = Field(..., description="Package name")
     version: str = Field(..., description="Version requirement (e.g., ^1.0.0)")
-    package_manager: str = Field(
-        default="npm", description="Package manager (npm, pip, etc.)"
-    )
-    reason: Optional[str] = Field(
-        None, description="Why this dependency is needed"
-    )
+    package_manager: str = Field(default="npm", description="Package manager (npm, pip, etc.)")
+    reason: Optional[str] = Field(None, description="Why this dependency is needed")
 
 
 class BestPractice(BaseModel):
@@ -92,9 +85,7 @@ class BestPractice(BaseModel):
 
     title: str = Field(..., description="Practice title")
     description: str = Field(..., description="Practice description")
-    code_reference: Optional[str] = Field(
-        None, description="Code snippet showing the practice"
-    )
+    code_reference: Optional[str] = Field(None, description="Code snippet showing the practice")
     benefit: Optional[str] = Field(None, description="Benefit of following this")
 
 
@@ -128,6 +119,7 @@ class Skill(ABC, BaseModel):
 
     class Config:
         """Pydantic config."""
+
         arbitrary_types_allowed = True
 
     # Metadata (must be overridden in subclass)
@@ -147,8 +139,7 @@ class Skill(ABC, BaseModel):
 
     # File structure this skill generates
     file_structure: Dict[str, str] = Field(
-        default_factory=dict,
-        description="Map of file paths to descriptions"
+        default_factory=dict, description="Map of file paths to descriptions"
     )
 
     @abstractmethod

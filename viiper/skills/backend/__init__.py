@@ -16,6 +16,10 @@ from viiper.skills.backend.rate_limiting import RateLimitingSkill
 from viiper.skills.backend.background_jobs import BackgroundJobsSkill
 from viiper.skills.backend.health_checks import HealthChecksSkill
 from viiper.skills.backend.api_documentation import APIDocumentationSkill
+from viiper.skills.backend.search_filtering import SearchFilteringSkill
+from viiper.skills.backend.data_export import DataExportSkill
+from viiper.skills.backend.migrations import MigrationsSkill
+from viiper.skills.backend.testing_patterns import TestingPatternsSkill
 
 __all__ = [
     "JWTAuthenticationSkill",
@@ -34,4 +38,8 @@ __all__ = [
     "BackgroundJobsSkill",
     "HealthChecksSkill",
     "APIDocumentationSkill",
+    "SearchFilteringSkill",
+    "DataExportSkill",
+    "MigrationsSkill",
+    "TestingPatternsSkill",
 ]

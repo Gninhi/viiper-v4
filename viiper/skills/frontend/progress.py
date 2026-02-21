@@ -15,6 +15,7 @@ from viiper.skills.base import (
     UsageExample,
     AntiPattern,
 )
+from viiper.skills.common_dependencies import FRONTEND_BASE_DEPS
 
 
 class PremiumProgressSkill(Skill):
@@ -42,42 +43,12 @@ class PremiumProgressSkill(Skill):
         description="Production-ready progress indicators with animations",
     )
 
-    dependencies: list = [
-        Dependency(
-            name="react",
-            version="^18.0.0",
-            package_manager="npm",
-            reason="UI library",
-        ),
+    dependencies: list = FRONTEND_BASE_DEPS + [
         Dependency(
             name="@radix-ui/react-progress",
             version="^1.0.3",
             package_manager="npm",
             reason="Progress primitives with ARIA",
-        ),
-        Dependency(
-            name="class-variance-authority",
-            version="^0.7.0",
-            package_manager="npm",
-            reason="Type-safe variants",
-        ),
-        Dependency(
-            name="tailwindcss",
-            version="^3.4.0",
-            package_manager="npm",
-            reason="Styling",
-        ),
-        Dependency(
-            name="clsx",
-            version="^2.1.0",
-            package_manager="npm",
-            reason="Class merging",
-        ),
-        Dependency(
-            name="tailwind-merge",
-            version="^2.2.0",
-            package_manager="npm",
-            reason="Tailwind merging",
         ),
     ]
 

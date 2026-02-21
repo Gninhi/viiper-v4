@@ -15,6 +15,7 @@ from viiper.skills.base import (
     UsageExample,
     AntiPattern,
 )
+from viiper.skills.common_dependencies import FRONTEND_BASE_DEPS
 
 
 class PremiumToastSkill(Skill):
@@ -43,20 +44,7 @@ class PremiumToastSkill(Skill):
         description="Production-ready toast notification system with react-hot-toast",
     )
 
-    dependencies: list = [
-        Dependency(
-            name="react",
-            version="^18.0.0",
-            package_manager="npm",
-            reason="UI library",
-        ),
-        Dependency(
-            name="react-hot-toast",
-            version="^2.4.1",
-            package_manager="npm",
-            reason="Lightweight toast notification library",
-        ),
-    ]
+    dependencies: list = FRONTEND_BASE_DEPS
 
     best_practices: list = [
         BestPractice(

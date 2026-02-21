@@ -71,6 +71,15 @@ class SharedContext(BaseModel):
     test_strategy: Optional[Dict[str, Any]] = Field(
         default=None, description="Test strategy from TestingAgent"
     )
+    seo_strategy: Optional[Dict[str, Any]] = Field(
+        default=None, description="SEO analysis and keyword strategy"
+    )
+    content: Optional[Dict[str, Any]] = Field(
+        default=None, description="Generated content and copy"
+    )
+    documentation: Optional[Dict[str, Any]] = Field(
+        default=None, description="Project documentation output"
+    )
     deployment_plan: Optional[Dict[str, Any]] = Field(
         default=None, description="Deployment plan from DevOpsAgent"
     )
@@ -91,12 +100,17 @@ class SharedContext(BaseModel):
         # Map agent names to context fields
         agent_field_map = {
             "System Design Agent": "architecture",
+            "Elite System Design Agent": "architecture",
             "Tech Stack Agent": "tech_stack",
             "Security Planning Agent": "security_plan",
             "Backend Agent": "api_design",
             "Frontend Agent": "ui_structure",
+            "Elite Frontend Agent": "ui_structure",
             "Testing Agent": "test_strategy",
             "DevOps Agent": "deployment_plan",
+            "SEO Agent": "seo_strategy",
+            "Content Writer Agent": "content",
+            "Documentation Agent": "documentation",
         }
 
         field = agent_field_map.get(agent_name)

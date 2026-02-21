@@ -5,6 +5,7 @@ from viiper.skills.base import (
     Skill, SkillMetadata, SkillCategory, SkillDifficulty,
     Dependency, BestPractice, UsageExample, AntiPattern,
 )
+from viiper.skills.common_dependencies import FRONTEND_BASE_DEPS
 
 class PremiumAlertSkill(Skill):
     """Premium alert/callout for important messages."""
@@ -19,12 +20,7 @@ class PremiumAlertSkill(Skill):
         description="Alert banners for success, error, warning, and info messages",
     )
 
-    dependencies: list = [
-        Dependency(name="react", version="^18.0.0", package_manager="npm", reason="UI library"),
-        Dependency(name="class-variance-authority", version="^0.7.0", package_manager="npm", reason="Variants"),
-        Dependency(name="tailwindcss", version="^3.4.0", package_manager="npm", reason="Styling"),
-        Dependency(name="lucide-react", version="^0.294.0", package_manager="npm", reason="Icons"),
-    ]
+    dependencies: list = FRONTEND_BASE_DEPS
 
     best_practices: list = [
         BestPractice(title="Use Semantic Variants", description="Match variant to message type", code_reference='variant="error" for errors', benefit="Clear visual communication"),

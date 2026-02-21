@@ -17,7 +17,7 @@ from viiper.agents.collaboration import CollaborationProtocol, MessageType
 
 class OrchestrationResult(BaseModel):
     """Result of orchestrated execution."""
-    
+
     success: bool
     phase: Phase
     tasks_completed: int = 0
@@ -30,14 +30,14 @@ class OrchestrationResult(BaseModel):
 class ProjectOrchestrator:
     """
     Main orchestrator for VIIPER projects.
-    
+
     Responsibilities:
     - Agent coordination
     - Task distribution
     - Workflow management
     - Phase transitions
     """
-    
+
     def __init__(self, project: Project, auto_register_agents: bool = True):
         """
         Initialize orchestrator.
@@ -53,15 +53,13 @@ class ProjectOrchestrator:
 
         # Create shared context for this project
         self.context = self.collaboration.create_context(
-            project_id=project.id,
-            phase=project.phase.value,
-            variant=project.variant.value
+            project_id=project.id, phase=project.phase.value, variant=project.variant.value
         )
 
         # Auto-register agents if requested
         if auto_register_agents:
             self._register_all_agents()
-    
+
     def _register_all_agents(self) -> None:
         """Register all available agents using the factory."""
         all_agents = AgentFactory.create_agent_pool()
@@ -71,11 +69,11 @@ class ProjectOrchestrator:
     def register_agent(self, agent: Agent) -> None:
         """Register an agent with the orchestrator."""
         self.agents.append(agent)
-    
+
     def get_agents_by_role(self, role: AgentRole) -> List[Agent]:
         """Get all agents with specific role."""
         return [agent for agent in self.agents if agent.role == role]
-    
+
     def find_capable_agent(self, task: AgentTask) -> Optional[Agent]:
         """
         Find an agent capable of handling a task.
@@ -121,7 +119,7 @@ class ProjectOrchestrator:
             return capable_agents[0]
 
         return None
-    
+
     async def execute_phase(self, phase: Optional[Phase] = None) -> OrchestrationResult:
         """
         Execute tasks for a specific phase with agent collaboration.
@@ -133,6 +131,7 @@ class ProjectOrchestrator:
             Orchestration result
         """
         import time
+
         start_time = time.time()
 
         target_phase = phase or self.project.phase
@@ -168,11 +167,7 @@ class ProjectOrchestrator:
                 results.append(result)
 
                 # Share agent output with context
-                self.collaboration.share_context(
-                    self.project.id,
-                    agent.name,
-                    result
-                )
+                self.collaboration.share_context(self.project.id, agent.name, result)
 
             except Exception as e:
                 errors.append(f"Task {task.name} failed: {str(e)}")
@@ -188,101 +183,101 @@ class ProjectOrchestrator:
             tasks_failed=len(errors),
             results=results,
             errors=errors,
-            duration_seconds=duration
+            duration_seconds=duration,
         )
-    
+
     def _generate_phase_tasks(self, phase: Phase) -> List[AgentTask]:
         """
         Generate tasks for a specific phase.
-        
+
         This is a simplified version. In production, tasks would be
         generated based on project requirements and CKB patterns.
         """
         tasks = []
-        
+
         if phase == Phase.VALIDATION:
-            tasks.extend([
-                AgentTask(
-                    name="Market Research",
-                    description="Analyze market size and competition",
-                    priority=10
-                ),
-                AgentTask(
-                    name="User Interviews",
-                    description="Conduct 10+ user interviews",
-                    priority=9
-                ),
-                AgentTask(
-                    name="Competitive Analysis",
-                    description="Analyze top 5 competitors",
-                    priority=8
-                )
-            ])
-        
+            tasks.extend(
+                [
+                    AgentTask(
+                        name="Market Research",
+                        description="Analyze market size and competition",
+                        priority=10,
+                    ),
+                    AgentTask(
+                        name="User Interviews",
+                        description="Conduct 10+ user interviews",
+                        priority=9,
+                    ),
+                    AgentTask(
+                        name="Competitive Analysis",
+                        description="Analyze top 5 competitors",
+                        priority=8,
+                    ),
+                ]
+            )
+
         elif phase == Phase.IDEATION:
-            tasks.extend([
-                AgentTask(
-                    name="System Architecture",
-                    description="Design system architecture",
-                    priority=10
-                ),
-                AgentTask(
-                    name="Tech Stack Selection",
-                    description="Select optimal tech stack",
-                    priority=9
-                ),
-                AgentTask(
-                    name="Security Planning",
-                    description="Plan security measures",
-                    priority=8
-                )
-            ])
-        
+            tasks.extend(
+                [
+                    AgentTask(
+                        name="System Architecture",
+                        description="Design system architecture",
+                        priority=10,
+                    ),
+                    AgentTask(
+                        name="Tech Stack Selection",
+                        description="Select optimal tech stack",
+                        priority=9,
+                    ),
+                    AgentTask(
+                        name="Security Planning", description="Plan security measures", priority=8
+                    ),
+                ]
+            )
+
         elif phase == Phase.PRODUCTION:
-            tasks.extend([
-                AgentTask(
-                    name="Frontend Development",
-                    description="Build frontend application",
-                    priority=10
-                ),
-                AgentTask(
-                    name="Backend Development",
-                    description="Build backend services",
-                    priority=10
-                ),
-                AgentTask(
-                    name="Testing",
-                    description="Write and execute tests",
-                    priority=9
-                )
-            ])
-        
+            tasks.extend(
+                [
+                    AgentTask(
+                        name="Frontend Development",
+                        description="Build frontend application",
+                        priority=10,
+                    ),
+                    AgentTask(
+                        name="Backend Development",
+                        description="Build backend services",
+                        priority=10,
+                    ),
+                    AgentTask(name="Testing", description="Write and execute tests", priority=9),
+                ]
+            )
+
         # Add more phase-specific tasks...
-        
+
         return tasks
-    
+
     async def transition_phase(self, next_phase: Phase) -> bool:
         """
         Transition project to next phase with validation.
-        
+
         Args:
             next_phase: Phase to transition to
-            
+
         Returns:
             True if transition successful
         """
         # Check if transition is valid
         if not self.project._can_transition_to(next_phase):
             return False
-        
+
         # Execute quality gates (simplified for Phase 0)
         # In production, this would run comprehensive validation
-        
-        # Transition
-        success = self.project.transition_to_phase(next_phase)
-        
+
+        # Transition (use force=True during orchestration)
+        success, _ = self.project.transition_to_phase(next_phase, force=True)
+
         return success
-    
+
     def get_status(self) -> Dict[str, Any]:
         """Get orchestrator status."""
         return {
@@ -292,5 +287,5 @@ class ProjectOrchestrator:
             "agents_active": len([a for a in self.agents if a.status == "busy"]),
             "agents_idle": len([a for a in self.agents if a.status == "idle"]),
             "active_tasks": len(self.active_tasks),
-            "project_health": self.project.calculate_health_score().overall
+            "project_health": self.project.calculate_health_score().overall,
         }

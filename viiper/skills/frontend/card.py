@@ -15,6 +15,7 @@ from viiper.skills.base import (
     UsageExample,
     AntiPattern,
 )
+from viiper.skills.common_dependencies import FRONTEND_BASE_DEPS
 
 
 class PremiumCardSkill(Skill):
@@ -42,38 +43,7 @@ class PremiumCardSkill(Skill):
         description="Premium card component with hover effects and composable API",
     )
 
-    dependencies: list = [
-        Dependency(
-            name="react",
-            version="^18.0.0",
-            package_manager="npm",
-            reason="UI library",
-        ),
-        Dependency(
-            name="class-variance-authority",
-            version="^0.7.0",
-            package_manager="npm",
-            reason="Type-safe variant composition",
-        ),
-        Dependency(
-            name="tailwindcss",
-            version="^3.4.0",
-            package_manager="npm",
-            reason="Utility-first CSS framework",
-        ),
-        Dependency(
-            name="clsx",
-            version="^2.1.0",
-            package_manager="npm",
-            reason="Conditional class merging",
-        ),
-        Dependency(
-            name="tailwind-merge",
-            version="^2.2.0",
-            package_manager="npm",
-            reason="Merge Tailwind classes properly",
-        ),
-    ]
+    dependencies: list = FRONTEND_BASE_DEPS
 
     best_practices: list = [
         BestPractice(

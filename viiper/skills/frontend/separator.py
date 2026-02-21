@@ -5,6 +5,7 @@ from viiper.skills.base import (
     Skill, SkillMetadata, SkillCategory, SkillDifficulty,
     Dependency, BestPractice, UsageExample, AntiPattern,
 )
+from viiper.skills.common_dependencies import FRONTEND_BASE_DEPS
 
 class PremiumSeparatorSkill(Skill):
     """Premium separator/divider for visual separation."""
@@ -19,10 +20,8 @@ class PremiumSeparatorSkill(Skill):
         description="Visual separator with horizontal/vertical orientations",
     )
 
-    dependencies: list = [
-        Dependency(name="react", version="^18.0.0", package_manager="npm", reason="UI library"),
+    dependencies: list = FRONTEND_BASE_DEPS + [
         Dependency(name="@radix-ui/react-separator", version="^1.0.3", package_manager="npm", reason="Separator primitives"),
-        Dependency(name="tailwindcss", version="^3.4.0", package_manager="npm", reason="Styling"),
     ]
 
     best_practices: list = [

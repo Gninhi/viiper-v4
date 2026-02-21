@@ -10,11 +10,11 @@ from viiper.skills.base import (
     SkillMetadata,
     SkillCategory,
     SkillDifficulty,
-    Dependency,
     BestPractice,
     UsageExample,
     AntiPattern,
 )
+from viiper.skills.common_dependencies import FRONTEND_FORM_DEPS
 
 
 class PremiumInputSkill(Skill):
@@ -42,68 +42,19 @@ class PremiumInputSkill(Skill):
         description="Production-ready input component with validation states, React Hook Form integration, and full accessibility",
     )
 
-    dependencies: list = [
-        Dependency(
-            name="react",
-            version="^18.0.0",
-            package_manager="npm",
-            reason="UI library",
-        ),
-        Dependency(
-            name="react-hook-form",
-            version="^7.50.0",
-            package_manager="npm",
-            reason="Form state and validation management",
-        ),
-        Dependency(
-            name="zod",
-            version="^3.22.0",
-            package_manager="npm",
-            reason="Schema validation",
-        ),
-        Dependency(
-            name="@hookform/resolvers",
-            version="^3.3.0",
-            package_manager="npm",
-            reason="Zod resolver for React Hook Form",
-        ),
-        Dependency(
-            name="class-variance-authority",
-            version="^0.7.0",
-            package_manager="npm",
-            reason="Type-safe variant composition",
-        ),
-        Dependency(
-            name="tailwindcss",
-            version="^3.4.0",
-            package_manager="npm",
-            reason="Utility-first CSS framework",
-        ),
-        Dependency(
-            name="clsx",
-            version="^2.1.0",
-            package_manager="npm",
-            reason="Conditional class merging",
-        ),
-        Dependency(
-            name="tailwind-merge",
-            version="^2.2.0",
-            package_manager="npm",
-            reason="Merge Tailwind classes properly",
-        ),
-    ]
+    dependencies: list = FRONTEND_FORM_DEPS
 
     best_practices: list = [
         BestPractice(
             title="Semantic HTML with Labels",
             description="Use <label> element properly associated with input via htmlFor",
-            code_reference='<label htmlFor={id}>{label}</label>',
+            code_reference="<label htmlFor={id}>{label}</label>",
             benefit="Screen readers can announce the label when input is focused",
         ),
         BestPractice(
             title="Error Announcements",
             description="Use aria-invalid and aria-describedby for error states",
-            code_reference='aria-invalid={!!error} aria-describedby={error ? errorId : undefined}',
+            code_reference="aria-invalid={!!error} aria-describedby={error ? errorId : undefined}",
             benefit="Assistive technologies announce validation errors",
         ),
         BestPractice(
@@ -121,7 +72,7 @@ class PremiumInputSkill(Skill):
         BestPractice(
             title="Clear Error Messages",
             description="Show specific, actionable error messages",
-            code_reference='{error?.message}',
+            code_reference="{error?.message}",
             benefit="Users understand what went wrong and how to fix it",
         ),
         BestPractice(
@@ -136,7 +87,7 @@ class PremiumInputSkill(Skill):
         UsageExample(
             name="Basic Input with React Hook Form",
             description="Email input with validation",
-            code='''import { useForm } from "react-hook-form"
+            code="""import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
 import { Input } from "@/components/ui/input"
@@ -159,12 +110,12 @@ function LoginForm() {
       required
     />
   )
-}''',
+}""",
         ),
         UsageExample(
             name="Password Input with Visibility Toggle",
             description="Password field with show/hide functionality",
-            code='''const [showPassword, setShowPassword] = useState(false)
+            code="""const [showPassword, setShowPassword] = useState(false)
 
 <Input
   label="Password"
@@ -180,27 +131,27 @@ function LoginForm() {
     </button>
   }
   required
-/>''',
+/>""",
         ),
         UsageExample(
             name="Input with Helper Text",
             description="Input with guidance text below",
-            code='''<Input
+            code="""<Input
   label="Username"
   {...register("username")}
   error={errors.username}
   helperText="Use 3-20 characters. Letters, numbers, and underscores only."
-/>''',
+/>""",
         ),
         UsageExample(
             name="Input with Prefix Icon",
             description="Search input with icon",
-            code='''<Input
+            code="""<Input
   type="search"
   placeholder="Search..."
   prefixIcon={<SearchIcon />}
   size="lg"
-/>''',
+/>""",
         ),
     ]
 
@@ -237,7 +188,7 @@ function LoginForm() {
         "lib/utils.ts": "cn() utility for class merging",
     }
 
-    component_code: str = '''// components/ui/input.tsx
+    component_code: str = """// components/ui/input.tsx
 import * as React from "react"
 import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
@@ -428,9 +379,9 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
 )
 
 Input.displayName = "Input"
-'''
+"""
 
-    utils_code: str = '''// lib/utils.ts
+    utils_code: str = """// lib/utils.ts
 import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
 
@@ -441,7 +392,7 @@ import { twMerge } from "tailwind-merge"
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
-'''
+"""
 
     def generate(self, context: Optional[Dict[str, Any]] = None) -> Dict[str, str]:
         """

@@ -15,6 +15,7 @@ from viiper.skills.base import (
     UsageExample,
     AntiPattern,
 )
+from viiper.skills.common_dependencies import FRONTEND_BASE_DEPS
 
 
 class PremiumAccordionSkill(Skill):
@@ -43,42 +44,12 @@ class PremiumAccordionSkill(Skill):
         description="Production-ready accordion with smooth animations and accessibility",
     )
 
-    dependencies: list = [
-        Dependency(
-            name="react",
-            version="^18.0.0",
-            package_manager="npm",
-            reason="UI library",
-        ),
+    dependencies: list = FRONTEND_BASE_DEPS + [
         Dependency(
             name="@radix-ui/react-accordion",
             version="^1.1.2",
             package_manager="npm",
             reason="Accessible accordion primitives",
-        ),
-        Dependency(
-            name="tailwindcss",
-            version="^3.4.0",
-            package_manager="npm",
-            reason="Utility-first CSS framework",
-        ),
-        Dependency(
-            name="clsx",
-            version="^2.1.0",
-            package_manager="npm",
-            reason="Conditional class merging",
-        ),
-        Dependency(
-            name="tailwind-merge",
-            version="^2.2.0",
-            package_manager="npm",
-            reason="Merge Tailwind classes properly",
-        ),
-        Dependency(
-            name="lucide-react",
-            version="^0.294.0",
-            package_manager="npm",
-            reason="Icons (ChevronDown)",
         ),
     ]
 

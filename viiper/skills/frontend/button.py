@@ -10,11 +10,11 @@ from viiper.skills.base import (
     SkillMetadata,
     SkillCategory,
     SkillDifficulty,
-    Dependency,
     BestPractice,
     UsageExample,
     AntiPattern,
 )
+from viiper.skills.common_dependencies import FRONTEND_BASE_DEPS
 
 
 class PremiumButtonSkill(Skill):
@@ -41,44 +41,13 @@ class PremiumButtonSkill(Skill):
         description="World-class button component with variants, loading states, and full accessibility",
     )
 
-    dependencies: list = [
-        Dependency(
-            name="react",
-            version="^18.0.0",
-            package_manager="npm",
-            reason="UI library",
-        ),
-        Dependency(
-            name="class-variance-authority",
-            version="^0.7.0",
-            package_manager="npm",
-            reason="Type-safe variant composition",
-        ),
-        Dependency(
-            name="tailwindcss",
-            version="^3.4.0",
-            package_manager="npm",
-            reason="Utility-first CSS framework",
-        ),
-        Dependency(
-            name="clsx",
-            version="^2.1.0",
-            package_manager="npm",
-            reason="Conditional class merging",
-        ),
-        Dependency(
-            name="tailwind-merge",
-            version="^2.2.0",
-            package_manager="npm",
-            reason="Merge Tailwind classes properly",
-        ),
-    ]
+    dependencies: list = FRONTEND_BASE_DEPS
 
     best_practices: list = [
         BestPractice(
             title="Semantic HTML",
             description="Uses semantic <button> element with proper ARIA attributes",
-            code_reference='<button aria-busy={loading}>',
+            code_reference="<button aria-busy={loading}>",
             benefit="Better accessibility and SEO",
         ),
         BestPractice(
@@ -116,7 +85,7 @@ class PremiumButtonSkill(Skill):
         UsageExample(
             name="Form Submit with Loading",
             description="Shows loading state during form submission",
-            code='''<form onSubmit={handleSubmit}>
+            code="""<form onSubmit={handleSubmit}>
   <Button
     type="submit"
     loading={isSubmitting}
@@ -124,18 +93,18 @@ class PremiumButtonSkill(Skill):
   >
     Save Changes
   </Button>
-</form>''',
+</form>""",
         ),
         UsageExample(
             name="Danger Action with Icon",
             description="Destructive action with confirmation",
-            code='''<Button
+            code="""<Button
   variant="danger"
   onClick={handleDelete}
   icon={<TrashIcon />}
 >
   Delete Account
-</Button>''',
+</Button>""",
         ),
         UsageExample(
             name="Ghost Navigation",
@@ -172,7 +141,7 @@ class PremiumButtonSkill(Skill):
         "lib/utils.ts": "cn() utility for class merging",
     }
 
-    component_code: str = '''// components/ui/button.tsx
+    component_code: str = """// components/ui/button.tsx
 import * as React from "react"
 import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
@@ -301,9 +270,9 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 )
 
 Button.displayName = "Button"
-'''
+"""
 
-    utils_code: str = '''// lib/utils.ts
+    utils_code: str = """// lib/utils.ts
 import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
 
@@ -314,7 +283,7 @@ import { twMerge } from "tailwind-merge"
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
-'''
+"""
 
     def generate(self, context: Optional[Dict[str, Any]] = None) -> Dict[str, str]:
         """

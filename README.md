@@ -1,233 +1,204 @@
-# 🚀 VIIPER V4 Framework
+# VIIPER v4
 
-**Revolutionary Multi-Agent Framework for Product Development**
+**Système Multi-Agents Autonome pour le Développement SaaS**
 
-VIIPER V4 is an intelligent, adaptive framework that transforms product development through multi-agent orchestration, collective intelligence, and meta-learning capabilities.
+VIIPER (Validation → Ideation → Production → Execution → Rentabilisation → Iteration) est un framework multi-agents qui automatise le cycle complet de développement de produits SaaS, de l'idée à la monétisation.
 
-## ✨ Features
+## 🚀 Fonctionnalités
 
-- 🤖 **Multi-Agent Orchestration**: Coordinate specialized agents (Research, Architecture, Production, Support)
-- 🧠 **Collective Knowledge Base**: Learn and improve from every project
-- 📊 **Health Monitoring**: Real-time project health scoring across 4 dimensions
-- 🔄 **Adaptive Workflows**: Dynamic agent scaling based on project needs
-- 🎯 **Phase-Based Methodology**: V → I → P → E → R → I² proven framework
-- 🛡️ **Quality Gates**: Automated validation between phases
-- 📈 **Meta-Learning**: Pattern extraction and predictive analytics
+- **22 Agents Spécialisés** couvrant tout le cycle de développement
+- **6 Phases Complètes** : V → I → P → E → R → I²
+- **Intégration LLM Multiple** : NVIDIA GLM5, Llama 3.1, Kimi K2.5
+- **Sécurité Intégrée** : Protection contre les injections de prompts et XSS
+- **Pipeline Browse → Idea → Code** : De la recherche web au code déployé
 
-## 🏗️ Architecture
+## 📋 Architecture des Phases
 
 ```
-VIIPER V4
-├── Meta-Orchestration Layer (Portfolio management)
-├── Collective Intelligence Layer (Shared knowledge)
-├── VIIPER Core Engine (V3.0 methodology)
-└── Adaptive Agent Layer (RAPS V2.0)
+┌─────────────────────────────────────────────────────────────────┐
+│                    VIIPER FRAMEWORK v4                          │
+├─────────────────────────────────────────────────────────────────┤
+│  V: Validation      │ Market Research, User Interview, Browser  │
+│  I: Ideation        │ System Design, Tech Stack, Security       │
+│  P: Production      │ Frontend, Backend, Testing, DevOps        │
+│  E: Execution       │ Marketing, Growth, Launch                 │
+│  R: Rentabilisation │ Monetization, Analytics, Optimization     │
+│  I²: Iteration      │ Amélioration Continue                     │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+## 🤖 Agents Disponibles
+
+### Phase V - Validation
+| Agent | Description |
+|-------|-------------|
+| `MarketResearchAgent` | Analyse de marché et tendances |
+| `UserInterviewAgent` | Interviews utilisateurs automatisées |
+| `IdeaGenerationAgent` | Génération d'idées produits |
+| `BrowserAgent` | Navigation web autonome et sécurisée |
+
+### Phase I - Ideation
+| Agent | Description |
+|-------|-------------|
+| `SystemDesignAgent` | Architecture système |
+| `TechStackAgent` | Sélection de technologies |
+| `SecurityPlanningAgent` | Planification sécurité |
+
+### Phase P - Production
+| Agent | Description |
+|-------|-------------|
+| `FrontendAgent` | Développement frontend |
+| `BackendAgent` | Développement backend |
+| `TestingAgent` | Tests automatisés |
+| `DevOpsAgent` | Déploiement et infrastructure |
+
+### Phase E - Execution
+| Agent | Description |
+|-------|-------------|
+| `MarketingAgent` | Stratégie marketing |
+| `GrowthAgent` | Croissance et acquisition |
+| `LaunchAgent` | Lancement produit |
+
+### Phase R - Rentabilisation
+| Agent | Description |
+|-------|-------------|
+| `MonetizationAgent` | Modèles de monétisation |
+| `AnalyticsAgent` | Analyse de données |
+| `OptimizationAgent` | Optimisation performances |
+
+### Elite & Specialist
+| Agent | Description |
+|-------|-------------|
+| `EliteFrontendAgent` | Design world-class |
+| `EliteSystemDesignAgent` | Architecture enterprise |
+| `SEOAgent` | Optimisation SEO |
+| `ContentWriterAgent` | Génération de contenu |
+
+## 🔒 Sécurité
+
+VIIPER intègre un module de sécurité complet :
+
+```python
+from viiper.security import (
+    PromptInjectionGuard,  # Protection injection prompts
+    ContentFilter,         # Filtrage XSS/scripts
+    sanitize_url,          # Validation URLs
+    validate_search_query  # Validation requêtes
+)
+```
+
+**40+ patterns d'attaque détectés** :
+- Injection de prompts
+- Manipulation de rôle
+- Override d'instructions
+- XSS et scripts malveillants
+- SQL injection
+
+## 🤖 Intégration LLM
+
+| Provider | Model | Utilisation |
+|----------|-------|-------------|
+| NVIDIA | `z-ai/glm5` | Code, architecture, analyse |
+| NVIDIA | `llama-3.1-405b` | Raisonnement complexe |
+| Kimi | `kimi-k2.5` | Recherche, idées, browsing |
+
+```python
+from viiper.llm import UnifiedLLM
+
+# Sélection automatique du meilleur modèle
+llm = UnifiedLLM()
+response = llm.complete("Génère une architecture pour...")
+
+# Modèle spécifique
+llm = UnifiedLLM(model="z-ai/glm5")
 ```
 
 ## 📦 Installation
 
-### Using pip
-
 ```bash
-pip install viiper-v4
-```
-
-### Using Poetry
-
-```bash
-poetry add viiper-v4
-```
-
-### From source
-
-```bash
-git clone https://github.com/[username]/viiper-v4.git
+# Cloner le repository
+git clone https://github.com/votre-repo/viiper-v4.git
 cd viiper-v4
-pip install -e .
+
+# Créer l'environnement virtuel
+python -m venv venv
+source venv/bin/activate
+
+# Installer les dépendances
+pip install -r requirements.txt
+
+# Installer Playwright (pour BrowserAgent)
+pip install playwright
+playwright install
 ```
 
-## 🚀 Quickstart
+## 🚀 Utilisation Rapide
 
 ```python
-from viiper import Project, Variant, Phase
-from viiper.orchestrator import ProjectOrchestrator
+from viiper.agents import AgentFactory
 
-# Create a new SaaS project
-project = Project(
-    name="my-saas",
-    variant=Variant.SAAS,
-    phase=Phase.VALIDATION,
-    budget=10000,
-    timeline_weeks=12
-)
+# Créer une équipe pour une phase
+validation_team = AgentFactory.create_agents_for_phase("validation")
+production_team = AgentFactory.create_agents_for_phase("production")
 
-# Initialize orchestrator
-orchestrator = ProjectOrchestrator(project)
+# Créer un agent spécifique
+browser = AgentFactory.create_agent("browser")
+idea_gen = AgentFactory.create_agent("idea_generation")
 
-# Execute validation phase
-orchestrator.execute_phase(Phase.VALIDATION)
-
-# Check project health
-health = project.calculate_health_score()
-print(f"Health Score: {health.overall}/10")
+# Pipeline complet
+pipeline = AgentFactory.create_browse_idea_code_pipeline()
 ```
 
-## 🎯 CLI Usage
+## 📁 Structure du Projet
+
+```
+viiper-v4/
+├── viiper/
+│   ├── agents/          # 22 agents spécialisés
+│   ├── core/            # Phases, projets, quality gates
+│   ├── orchestrator/    # Orchestration multi-agents
+│   ├── llm/             # Intégration LLM unifiée
+│   ├── security/        # Protection anti-injection
+│   ├── skills/          # 50+ skills réutilisables
+│   ├── persistence/     # Base de données
+│   ├── ckb/             # Base de connaissances collective
+│   └── cli/             # Interface ligne de commande
+├── tests/               # Tests unitaires et intégration
+├── examples/            # Exemples d'utilisation
+└── docs/                # Documentation
+```
+
+## 🧪 Tests
 
 ```bash
-# Initialize new project
-viiper init my-saas --variant=saas --budget=10000
+# Tests unitaires
+pytest tests/unit/
 
-# Execute current phase
-viiper execute --auto
+# Tests d'intégration
+pytest tests/integration/
 
-# Check project status
-viiper status --detailed
-
-# Search knowledge base
-viiper ckb search "authentication pattern"
-
-# Transition to next phase
-viiper transition --to=ideation
+# Coverage
+pytest --cov=viiper tests/
 ```
 
-## 📚 Project Variants
+## 📈 Métriques
 
-| Variant | Timeline | Budget | Use Case |
-|---------|----------|--------|----------|
-| **Landing** | 1-4 weeks | €500-2K | Lead generation pages |
-| **Web** | 4-8 weeks | €2K-5K | Content websites |
-| **SaaS** | 8-20 weeks | €5K-15K | Software as a Service |
-| **Mobile** | 12-24 weeks | €10K-30K | Mobile applications |
-| **AI** | 12-30 weeks | €10K-50K | AI/ML products |
+| Metric | Value |
+|--------|-------|
+| Agents | 22 |
+| Phases | 6 |
+| Skills | 50+ |
+| Lignes de code | ~40,000 |
+| Patterns sécurité | 40+ |
 
-## 🔄 Six Phases (VIIPER)
+## 🤝 Contribution
 
-1. **V - Validation**: Market research, problem validation (2-4 weeks)
-2. **I - Idéation**: Architecture design, planning (1-3 weeks)
-3. **P - Production**: Development, testing (4-12 weeks)
-4. **E - Exécution**: Launch, user acquisition (2-8 weeks)
-5. **R - Rentabilisation**: Optimization, monetization (4+ weeks)
-6. **I² - Itération**: Continuous improvement (ongoing)
-
-## 🤖 Agent System
-
-### Core Agents (RAPS V2.0)
-
-- **Research Agents**: Market analysis, user interviews, competitive research
-- **Architecture Agents**: System design, tech stack, scalability planning
-- **Production Agents**: Frontend, backend, testing, DevOps
-- **Support Agents**: Documentation, monitoring, customer success
-
-### Specialist Agents (Generated on-demand)
-
-- SEO Agent, Security Agent, Payment Specialist, Accessibility Agent, etc.
-
-## 📊 Health Score Dimensions
-
-Each project is continuously monitored across:
-
-- **Performance** (9/10): Code quality, test coverage, security
-- **Acquisition** (7/10): User growth, activation rate
-- **Engagement** (8/10): User activity, retention
-- **Revenue** (6/10): MRR growth, unit economics
-
-## 🧪 Development
-
-### Setup
-
-```bash
-# Clone repository
-git clone https://github.com/[username]/viiper-v4.git
-cd viiper-v4
-
-# Install dependencies with Poetry
-poetry install
-
-# Or with pip
-pip install -e ".[dev]"
-```
-
-### Run Tests
-
-```bash
-# All tests
-pytest
-
-# With coverage
-pytest --cov=viiper --cov-report=html
-
-# Specific test file
-pytest tests/unit/test_core.py -v
-```
-
-### Code Quality
-
-```bash
-# Format code
-black viiper/
-
-# Lint
-ruff check viiper/
-
-# Type checking
-mypy viiper/
-```
-
-## 📖 Documentation
-
-- [Getting Started Guide](docs/guides/getting-started.md)
-- [Architecture Overview](docs/architecture.md)
-- [Agent Development](docs/guides/agents.md)
-- [Skills Library](docs/guides/skills.md)
-- [API Reference](docs/api/README.md)
-
-## 🤝 Contributing
-
-Contributions are welcome! Please read our [Contributing Guide](CONTRIBUTING.md) for details.
+Les contributions sont les bienvenues ! Voir [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## 📄 License
 
-MIT License - see [LICENSE](LICENSE) file for details.
-
-## 🌟 Roadmap
-
-### Phase 0: Foundations ✅ (Current)
-
-- Core framework implementation
-- Basic agent system
-- CLI tool
-- Skills library (Auth, Dashboard, Payments)
-
-### Phase 1: RAPS Concrete (Q2 2026)
-
-- 15-20 detailed agents
-- Collective Knowledge Base V1
-- Quality gates system
-- Multi-project support
-
-### Phase 2: Advanced Features (Q3-Q4 2026)
-
-- Meta-learning engine
-- Predictive protocols
-- Elastic agent scaling
-- Portfolio orchestration
-
-## 💡 Philosophy
-
-> "Speed THROUGH Intelligence, Not Despite It"
-
-VIIPER V4 achieves 10x productivity by combining:
-
-- Specialized agents doing ONE thing perfectly
-- Massive parallelization
-- Automated quality gates
-- Collective learning across projects
-
-## 🙏 Acknowledgments
-
-Based on VIIPER V3.0 methodology with revolutionary multi-agent architecture inspired by cutting-edge AI orchestration patterns.
+MIT License - Voir [LICENSE](LICENSE)
 
 ---
 
-Made with ❤️ by the VIIPER Team
+**VIIPER v4** - *Du concept à la rentabilisation, automatisé.*

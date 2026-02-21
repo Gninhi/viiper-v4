@@ -5,6 +5,7 @@ from viiper.skills.base import (
     Skill, SkillMetadata, SkillCategory, SkillDifficulty,
     Dependency, BestPractice, UsageExample, AntiPattern,
 )
+from viiper.skills.common_dependencies import FRONTEND_BASE_DEPS
 
 class PremiumSkeletonSkill(Skill):
     """Premium skeleton loading placeholders."""
@@ -19,10 +20,7 @@ class PremiumSkeletonSkill(Skill):
         description="Loading placeholders for better perceived performance",
     )
 
-    dependencies: list = [
-        Dependency(name="react", version="^18.0.0", package_manager="npm", reason="UI library"),
-        Dependency(name="tailwindcss", version="^3.4.0", package_manager="npm", reason="Styling"),
-    ]
+    dependencies: list = FRONTEND_BASE_DEPS
 
     best_practices: list = [
         BestPractice(title="Match Content Shape", description="Skeleton should match final content layout", code_reference="Same heights/widths", benefit="Smooth transition when loaded"),

@@ -5,6 +5,7 @@ from viiper.skills.base import (
     Skill, SkillMetadata, SkillCategory, SkillDifficulty,
     Dependency, BestPractice, UsageExample, AntiPattern,
 )
+from viiper.skills.common_dependencies import FRONTEND_BASE_DEPS
 
 class PremiumLabelSkill(Skill):
     """Premium label for form inputs."""
@@ -19,10 +20,8 @@ class PremiumLabelSkill(Skill):
         description="Accessible form labels with proper associations",
     )
 
-    dependencies: list = [
-        Dependency(name="react", version="^18.0.0", package_manager="npm", reason="UI library"),
+    dependencies: list = FRONTEND_BASE_DEPS + [
         Dependency(name="@radix-ui/react-label", version="^2.0.2", package_manager="npm", reason="Label primitives"),
-        Dependency(name="tailwindcss", version="^3.4.0", package_manager="npm", reason="Styling"),
     ]
 
     best_practices: list = [

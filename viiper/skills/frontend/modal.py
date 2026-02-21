@@ -15,6 +15,7 @@ from viiper.skills.base import (
     UsageExample,
     AntiPattern,
 )
+from viiper.skills.common_dependencies import FRONTEND_BASE_DEPS
 
 
 class PremiumModalSkill(Skill):
@@ -44,42 +45,12 @@ class PremiumModalSkill(Skill):
         description="Production-ready modal component with accessibility, animations, and focus management",
     )
 
-    dependencies: list = [
-        Dependency(
-            name="react",
-            version="^18.0.0",
-            package_manager="npm",
-            reason="UI library",
-        ),
+    dependencies: list = FRONTEND_BASE_DEPS + [
         Dependency(
             name="@radix-ui/react-dialog",
             version="^1.0.5",
             package_manager="npm",
             reason="Accessible dialog primitives with focus management",
-        ),
-        Dependency(
-            name="class-variance-authority",
-            version="^0.7.0",
-            package_manager="npm",
-            reason="Type-safe variant composition",
-        ),
-        Dependency(
-            name="tailwindcss",
-            version="^3.4.0",
-            package_manager="npm",
-            reason="Utility-first CSS framework",
-        ),
-        Dependency(
-            name="clsx",
-            version="^2.1.0",
-            package_manager="npm",
-            reason="Conditional class merging",
-        ),
-        Dependency(
-            name="tailwind-merge",
-            version="^2.2.0",
-            package_manager="npm",
-            reason="Merge Tailwind classes properly",
         ),
     ]
 
@@ -126,7 +97,7 @@ class PremiumModalSkill(Skill):
         UsageExample(
             name="Basic Modal",
             description="Simple modal with trigger button",
-            code='''import { Modal } from "@/components/ui/modal"
+            code="""import { Modal } from "@/components/ui/modal"
 import { Button } from "@/components/ui/button"
 
 function App() {
@@ -157,12 +128,12 @@ function App() {
       </Modal.Content>
     </Modal>
   )
-}''',
+}""",
         ),
         UsageExample(
             name="Controlled Modal",
             description="Modal with external state control",
-            code='''const [isOpen, setIsOpen] = useState(false)
+            code="""const [isOpen, setIsOpen] = useState(false)
 
 <Modal open={isOpen} onOpenChange={setIsOpen}>
   <Modal.Content size="lg">
@@ -182,12 +153,12 @@ function App() {
       </Button>
     </Modal.Footer>
   </Modal.Content>
-</Modal>''',
+</Modal>""",
         ),
         UsageExample(
             name="Confirmation Dialog",
             description="Alert-style confirmation modal",
-            code='''<Modal>
+            code="""<Modal>
   <Modal.Trigger asChild>
     <Button variant="danger">Delete Account</Button>
   </Modal.Trigger>
@@ -209,12 +180,12 @@ function App() {
       </Button>
     </Modal.Footer>
   </Modal.Content>
-</Modal>''',
+</Modal>""",
         ),
         UsageExample(
             name="Full-Screen Modal",
             description="Full-screen modal for complex forms",
-            code='''<Modal>
+            code="""<Modal>
   <Modal.Trigger asChild>
     <Button>New Project</Button>
   </Modal.Trigger>
@@ -233,7 +204,7 @@ function App() {
       <Button>Create Project</Button>
     </Modal.Footer>
   </Modal.Content>
-</Modal>''',
+</Modal>""",
         ),
     ]
 
@@ -270,7 +241,7 @@ function App() {
         "lib/utils.ts": "cn() utility for class merging",
     }
 
-    component_code: str = '''// components/ui/modal.tsx
+    component_code: str = """// components/ui/modal.tsx
 import * as React from "react"
 import * as DialogPrimitive from "@radix-ui/react-dialog"
 import { cva, type VariantProps } from "class-variance-authority"
@@ -471,9 +442,9 @@ export {
   ModalFooter,
   ModalClose,
 }
-'''
+"""
 
-    utils_code: str = '''// lib/utils.ts
+    utils_code: str = """// lib/utils.ts
 import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
 
@@ -484,7 +455,7 @@ import { twMerge } from "tailwind-merge"
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
-'''
+"""
 
     def generate(self, context: Optional[Dict[str, Any]] = None) -> Dict[str, str]:
         """

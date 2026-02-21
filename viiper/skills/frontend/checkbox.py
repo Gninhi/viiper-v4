@@ -15,6 +15,7 @@ from viiper.skills.base import (
     UsageExample,
     AntiPattern,
 )
+from viiper.skills.common_dependencies import FRONTEND_BASE_DEPS
 
 
 class PremiumCheckboxSkill(Skill):
@@ -43,13 +44,7 @@ class PremiumCheckboxSkill(Skill):
         description="Production-ready checkbox and switch components with full accessibility",
     )
 
-    dependencies: list = [
-        Dependency(
-            name="react",
-            version="^18.0.0",
-            package_manager="npm",
-            reason="UI library",
-        ),
+    dependencies: list = FRONTEND_BASE_DEPS + [
         Dependency(
             name="@radix-ui/react-checkbox",
             version="^1.0.4",
@@ -61,30 +56,6 @@ class PremiumCheckboxSkill(Skill):
             version="^1.0.3",
             package_manager="npm",
             reason="Switch primitives",
-        ),
-        Dependency(
-            name="tailwindcss",
-            version="^3.4.0",
-            package_manager="npm",
-            reason="Styling",
-        ),
-        Dependency(
-            name="clsx",
-            version="^2.1.0",
-            package_manager="npm",
-            reason="Class merging",
-        ),
-        Dependency(
-            name="tailwind-merge",
-            version="^2.2.0",
-            package_manager="npm",
-            reason="Tailwind merging",
-        ),
-        Dependency(
-            name="lucide-react",
-            version="^0.294.0",
-            package_manager="npm",
-            reason="Check icon",
         ),
     ]
 

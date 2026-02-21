@@ -5,6 +5,7 @@ from viiper.skills.base import (
     Skill, SkillMetadata, SkillCategory, SkillDifficulty,
     Dependency, BestPractice, UsageExample, AntiPattern,
 )
+from viiper.skills.common_dependencies import FRONTEND_BASE_DEPS
 
 class PremiumSliderSkill(Skill):
     """Premium slider for range inputs."""
@@ -19,10 +20,8 @@ class PremiumSliderSkill(Skill):
         description="Range slider with Radix UI",
     )
 
-    dependencies: list = [
-        Dependency(name="react", version="^18.0.0", package_manager="npm", reason="UI library"),
+    dependencies: list = FRONTEND_BASE_DEPS + [
         Dependency(name="@radix-ui/react-slider", version="^1.1.2", package_manager="npm", reason="Slider primitives"),
-        Dependency(name="tailwindcss", version="^3.4.0", package_manager="npm", reason="Styling"),
     ]
 
     best_practices: list = [
